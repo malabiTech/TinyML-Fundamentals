@@ -1,0 +1,26 @@
+Introducing dropouts after each dense layer looks like this:
+model = tf.keras.models.Sequential([
+
+                  tf.keras.layers.Flatten(input_shape=(28,28)),
+
+                  tf.keras.layers.Dense(256, activation=tf.nn.relu),
+
+                  tf.keras.layers.Dropout(0.2),
+
+                  tf.keras.layers.Dense(128, activation=tf.nn.relu),
+
+                  tf.keras.layers.Dropout(0.2),
+
+                  tf.keras.layers.Dense(64, activation=tf.nn.relu),
+
+                  tf.keras.layers.Dropout(0.2),
+
+                  tf.keras.layers.Dense(10, activation=tf.nn.softmax)])
+                  
+                  
+ When this network was trained for the same period on the same data, the 
+ accuracy on the training set dropped to about 89.5%. The accuracy on the 
+ validation set stayed about the same, at 88.3%. These values are much 
+ closer to each other; the introduction of dropouts thus not only demonstrated 
+ that overfitting was occurring, but also that adding them can help remove it 
+ by ensuring that the network isn’t overspecializing to the training data.
