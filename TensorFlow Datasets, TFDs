@@ -1,0 +1,31 @@
+all you had to do to get the data was this:
+  data = tf.keras.datasets.fashion_mnist
+  (training_images, training_labels), (test_images, test_labels) = data.load_data()
+  
+  TensorFlow Datasets is a separate install from TensorFlow,
+  pip install tensorflow-datasets
+  
+import tensorflow as tf
+import tensorflow_datasets as tfds
+mnist_data = tfds.load("fashion_mnist")
+for item in mnist_data:
+print(item)
+
+Two very important concepts to learn with TensorFlow Datasets are the Splits API -- 
+that gives you a flexible way of splitting up data into Training, Testing, Validation sets, and Mapping Functions.
+TFDS makes it simple with the mapping functions.
+def augmentimages(image, label):
+
+  image = tf.cast(image, tf.float32)
+
+  image = (image/255)
+
+  image = tf.image.random_flip_left_right(image)
+
+  return image, label
+
+data = tfds.load('horses_or_humans', split='train', as_supervised=True)
+
+train = data.map(augmentimages)
+
+In this case, tfds.load is used to get the horse
